@@ -1,6 +1,6 @@
 # Rypytree
-## A pseudo implementation of the tree command in linux
-#### Usage
+A pseudo implementation of the tree command in linux
+## Usage
 ```
 usage: rypytree.py [-h] [-a] [-l L] /path/to/dir
 
@@ -16,7 +16,7 @@ optional arguments:
   -l L          depth or level limit
 ```
 
-#### Things that need to be completed:
+## Things that need to be completed:
 - PermissionErrors
 - Clean up the pipes
 - Refactor code to look cleaner
