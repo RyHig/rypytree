@@ -21,6 +21,7 @@ def create_parser():
 
 '''
 TODO: 
+if Directory == None.
 Save the data into a Dictionary of Dictionaries?
 Figure out how to add the tree-like display with the pipes.
 Gotta add permission errors. *sigh*
@@ -53,10 +54,9 @@ Problem with that solution:
             ├─ DIR: <---    "   "     "     "       " 
             └─ DIR: <---    "   "     "     "       " 
 '''
-def how_far(directory, hidden, limit, n=0, last_line=False):
+def how_far(directory, hidden, limit=None, n=0, last_line=False):
     if n == 0:
         print(directory)
-
     if n == limit:
         return
     elif directory.is_dir():
@@ -83,48 +83,9 @@ def how_far(directory, hidden, limit, n=0, last_line=False):
     else:
         return None
 
-
-def no_limit_tree(directory, hidden, last_line=False, n=0, bypass=False):
-    if directory.is_dir():
-        items_in_folder = [item for item in directory.iterdir()]
-        for item in range(len(items_in_folder)):
-            if last_line == True and n == 0:
-                if (items_in_folder[item].name).startswith('.') and not hidden:
-                    pass
-                elif item == len(items_in_folder) - 1:
-                    if items_in_folder[item].is_dir():
-                        print('{}{} DIR:{}'.format(SPACE*n, "└─", items_in_folder[item].name))
-                        no_limit_tree(items_in_folder[item], hidden, last_line=True, n=n+1)
-                    
-                    else:
-                        print('{}{} FILE:{}'.format(SPACE*n, "└─", items_in_folder[item].name))
-                elif items_in_folder[item].is_dir():
-                    print('{}{} DIR:{}'.format(SPACE*n, "├─", items_in_folder[item].name))
-                    no_limit_tree(items_in_folder[item], hidden, n=n+1)
-                    
-                else:
-                    print('{}{} FILE:{}'.format(SPACE*n, "├─", items_in_folder[item].name)) 
-            else:
-                if (items_in_folder[item].name).startswith('.') and not hidden:
-                    pass
-                elif item == len(items_in_folder) - 1:
-                    if items_in_folder[item].is_dir():
-                        print('{}{} DIR:{}'.format(LINES*n, "└─", items_in_folder[item].name))
-                        no_limit_tree(items_in_folder[item], hidden, last_line=True, n=n+1)
-                    
-                    else:
-                        print('{}{} FILE:{}'.format(LINES*n, "└─", items_in_folder[item].name))
-                elif items_in_folder[item].is_dir():
-                    print('{}{} DIR:{}'.format(LINES*n, "├─", items_in_folder[item].name))
-                    no_limit_tree(items_in_folder[item], hidden, n=n+1)
-                    
-                else:
-                    print('{}{} FILE:{}'.format(LINES*n, "├─", items_in_folder[item].name))
-
-
 def limit_or_none(directory, hidden, limit):
     if limit == None:
-        no_limit_tree(directory, hidden)
+        how_far(directory, hidden)
     else:
         how_far(directory, hidden, int(limit))
 
